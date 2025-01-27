@@ -1,4 +1,4 @@
-package com.logback.learn;
+package com.tdd.learn.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
