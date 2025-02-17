@@ -1,19 +1,24 @@
 package com.tdd.learn.baseballGame;
 
-import java.util.Scanner;
-
-/**
- * 투수는 숫자를 던지는 역할을 한다.
- */
 public class Pitcher {
 
-    private final int[] answer;
+    private String answer;
 
-    public Pitcher(int[] answer) {
+    public Pitcher(String answer) {
+        if (answer == null || answer.length() != 3 || !answer.matches("\\d{3}")) {
+            throw new IllegalArgumentException("던질 숫자는 3자리수 숫자여야 합니다.");
+        }
         this.answer = answer;
     }
 
-    public int[] getAnswer() {
+    public String getAnswer() {
         return answer;
+    }
+
+    public void setAnswer(String answer) {
+        if (answer == null || answer.length() != 3 || !answer.matches("\\d{3}")) {
+            throw new IllegalArgumentException("던질 숫자는 3자리수 숫자여야 합니다.");
+        }
+        this.answer = answer;
     }
 }

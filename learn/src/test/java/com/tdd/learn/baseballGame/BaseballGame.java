@@ -1,49 +1,74 @@
 package com.tdd.learn.baseballGame;
 
-import static com.tdd.learn.baseballGame.GameUtil.isContainsNumber;
-
 public class BaseballGame {
 
-    private final Pitcher pitcher;
-    private final Batter batter;
-    private int attempts;
+    private Batter batter;
+    private Pitcher pitcher;
+    private int strikes;
+    private int balls;
+    private int outs;
 
-    public BaseballGame(Pitcher pitcher, Batter batter) {
-        this.pitcher = pitcher;
+    public BaseballGame(Batter batter, Pitcher pitcher) {
+        if(batter == null || pitcher == null) throw new NullPointerException();
+
         this.batter = batter;
-        this.attempts = 0;
+        this.pitcher = pitcher;
+        this.strikes = 0;
+        this.balls = 0;
+        this.outs = 0;
     }
 
-    public String play(int[] userGuess) {
-        if (attempts >= 9) {
-            return "게임 종료! 최대 시도 횟수를 초과했습니다.";
+    public String play() {
+        if (outs == 3) {
+            return "Game Over";
         }
 
-        int[] answer = pitcher.getAnswer();
-        int strike = 0, ball = 0, out = 0;
+        String answer = pitcher.getAnswer(); // 투수의 답
+        if (answer.length() != 3) {
+            throw new IllegalArgumentException("던질 숫자는 3자리수 숫자여야 합니다.");
+        }
 
-        // 타자가 던진 숫자와 투수의 숫자를 비교
-        for (int i = 0; i < userGuess.length; i++) {
-            if (userGuess[i] == answer[i]) {
-                strike++;
-            } else if (isContainsNumber(answer, userGuess[i])) {
-                ball++;
+        // 타자가 추측한 숫자 (예: "123")
+        String batterGuess = batter.getGuess(); // 타자가 입력한 숫자
+
+        if (batterGuess.length() != 3) {
+            throw new IllegalArgumentException("타자의 추측도 3자리수여야 합니다.");
+        }
+
+        // 초기화
+        strikes = 0;
+        balls = 0;
+        outs = 0;
+
+        // 스트라이크와 볼 계산
+        for (int i = 0; i < 3; i++) {
+            if (batterGuess.charAt(i) == answer.charAt(i)) {
+                strikes++; // 동일한 위치에 있는 숫자는 스트라이크
+            } else if (answer.contains(String.valueOf(batterGuess.charAt(i)))) {
+                balls++; // 값은 일치하지만 위치가 다른 경우 볼
             } else {
-                out++;
+                outs++;
             }
         }
 
-        attempts++;
-
-        // 3Strike가 맞으면 게임 종료
-        if (strike == 3) {
-            return "게임 종료! 정답을 맞추었습니다!";
-        }
-
-        return strike + "S/" + ball + "B/" + out + "O";
+        // 게임 상태 반환
+        return String.format("%dS/%dB/%dO", strikes, balls, outs);
     }
 
-    public int getAttempts() {
-        return attempts;
+
+    public Batter getBatter() {
+        return batter;
+    }
+
+    public void setBatter(Batter batter) {
+        this.batter = batter;
+    }
+
+    public Pitcher getPitcher() {
+        return pitcher;
+    }
+
+    public void setPitcher(Pitcher pitcher) {
+        this.pitcher = pitcher;
     }
 }
