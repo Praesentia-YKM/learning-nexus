@@ -2,12 +2,18 @@ package com.tdd.learn.testDouble.mockitoPractice;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 public class GameGenMockTest {
+
+    @Test
+    void mockTest() {
+        GameNumGen genMock = mock(GameNumGen.class);
+        assertNotNull(genMock);
+    }
+
 
     @Test
     void mockStubTest() {
