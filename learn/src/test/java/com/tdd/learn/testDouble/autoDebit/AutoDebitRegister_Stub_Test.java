@@ -20,6 +20,7 @@ public class AutoDebitRegister_Stub_Test {
 
     @Test
     void invalidCard() {
+        // 유효한 카드임을 알고싶으면 StubCardNumberValidator에 invalidNo추가
         stubValidator.setInvalidNo("111122223333");
 
         AutoDebitReq req = new AutoDebitReq("user1", "111122223333");
@@ -30,6 +31,7 @@ public class AutoDebitRegister_Stub_Test {
 
     @Test
     void theftCard() {
+        // 도난당한 카드 테스트하고 싶으면 StubCardNumberValidator에 theftNo 추가
         stubValidator.setTheftNo("1234567890123456");
 
         AutoDebitReq req = new AutoDebitReq("user1", "1234567890123456");
@@ -40,6 +42,7 @@ public class AutoDebitRegister_Stub_Test {
 
     @Test
     void validCard() {
+        // 대역을 사요하지 않고 비지니스 코드를 그대로 사용하면 해당 카드번호를 업체에게 공급받아야 테스트가 일시적으로 가능하다.
         AutoDebitReq req = new AutoDebitReq("user1", "1234123412341234");
         RegisterResult result = this.register.register(req);
         assertEquals(VALID, result.getValidity());
