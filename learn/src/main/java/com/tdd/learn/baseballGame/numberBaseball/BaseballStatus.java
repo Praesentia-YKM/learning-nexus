@@ -1,4 +1,4 @@
-package com.tdd.learn.spring.numberBaseball;
+package com.tdd.learn.baseballGame.numberBaseball;
 
 public enum BaseballStatus {
     STRIKE("S"),
