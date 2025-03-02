@@ -27,7 +27,7 @@ public class SubwayApiClient {
                 .build()
             )
             .retrieve()
-            .bodyToMono(PassengerData.class)
+            .bodyToMono(PassengerData.class) // Jackson 기반 json -> Object 자동매핑
             .onErrorResume(e -> {
                 System.err.println("API 호출 실패: " + e.getMessage());
                 return Mono.empty();
