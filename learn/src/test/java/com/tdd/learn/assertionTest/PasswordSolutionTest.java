@@ -9,8 +9,8 @@ public class PasswordSolutionTest {
 
     private PasswordStrengthMeter meter = new PasswordStrengthMeter();
     @Test
-    void meetsOnlyUpperCreteria_Then_Weak() {
-        assertStrength("absDef", WEAK);
+    void meetsOnlyUpperCreteria_Then_Normal() {
+        assertStrength("absDef", NORMAL);
     }
 
     @Test

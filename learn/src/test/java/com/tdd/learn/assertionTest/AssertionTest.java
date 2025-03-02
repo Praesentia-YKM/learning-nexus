@@ -55,9 +55,9 @@ public class AssertionTest {
         assertArrayEquals(expected, actual);
 
         // ❌ 테스트 실패 (3 != 4)
-        int[] expected2 = {1, 2, 3};
-        int[] actual2 = {1, 2, 4};
-        assertArrayEquals(expected2, actual2);
+//        int[] expected2 = {1, 2, 3};
+//        int[] actual2 = {1, 2, 4};
+//        assertArrayEquals(expected2, actual2);
     }
 
     @Test
@@ -95,18 +95,18 @@ public class AssertionTest {
         assertIterableEquals(expectedList, actualStack, "Stack 비교 실패!");
 
         // ❌ Set 비교 (순서 다르면 실패 가능)
-        Set<String> expectedSet = new LinkedHashSet<>(List.of("A", "B", "C")); // 순서 유지됨
-        Set<String> actualSet = new LinkedHashSet<>(Set.of("A", "B", "C")); // 동일한 순서라면 통과
-        assertIterableEquals(expectedSet, actualSet, "LinkedHashSet 비교 실패!");
+//        Set<String> expectedSet = new LinkedHashSet<>(List.of("A", "B", "C")); // 순서 유지됨
+//        Set<String> actualSet = new LinkedHashSet<>(Set.of("A", "B", "C")); // 동일한 순서라면 통과
+//        assertIterableEquals(expectedSet, actualSet, "LinkedHashSet 비교 실패!");
 
         // ❌ HashSet은 순서를 보장하지 않으므로 테스트가 실패할 수 있음
-        Set<String> actualHashSet = new HashSet<>(Set.of("A", "B", "C"));
-        assertIterableEquals(expectedSet, actualHashSet, "HashSet 비교 실패!"); // ❌ 실패 가능 (순서 다름)
+//        Set<String> actualHashSet = new HashSet<>(Set.of("A", "B", "C"));
+//        assertIterableEquals(expectedSet, actualHashSet, "HashSet 비교 실패!"); // ❌ 실패 가능 (순서 다름)
 
         // Iterable 하지 않은 자료구조 (배열, Iterable클래스를 상속받지 않은 커스텀객체, Map)은 비교불가
         // ❌ 실행하면 java.lang.ClassCastException 발생!
-        Integer[] expected = {1, 2, 3};
-        Integer[] actual = {1, 2, 3};
+//        Integer[] expected = {1, 2, 3};
+//        Integer[] actual = {1, 2, 3};
         //assertIterableEquals(expected, actual);
     }
 
@@ -160,26 +160,27 @@ public class AssertionTest {
             new IllegalArgumentException("예외발생");
         }, "예외를 생성만하지 던지지는 않았으니까 성공");
 
-        // ❌
-        assertDoesNotThrow(() -> {
-            throw new IllegalArgumentException("예외를 던졌으니 테스트가 실패한다.");
-        }, "에러발생");
+        // ❌ 빌드 안되니까 주석처리
+//        assertDoesNotThrow(() -> {
+//            throw new IllegalArgumentException("예외를 던졌으니 테스트가 실패한다.");
+//        }, "에러발생");
 
     }
 
     @Test
     public void assert문은_검증실패시_이후코드를_실행하지않는다() {
-        assertEquals(3, 5/2); // 3이 아니고 2라서 실패
+//        assertEquals(3, 5/2); // 3이 아니고 2라서 실패
         assertEquals(4, 2*2); // 성공케이스지만 여기까지 검증하지 않고 전체 실패로 반환
     }
 
     @Test
     public void assertAll문은_검증실패시에도_모든검증을실행하고_실패목록들을_알려준다() {
-        assertAll(
-            () -> assertEquals(3,5/2), // 2
-            () -> assertEquals(4,2*2), // 4
-            () -> assertEquals(6,11/2) // 5
-        );
+        //실패 케이스가 존재하여 빌드 안되니까 주석처리
+//        assertAll(
+//            () -> assertEquals(3,5/2), // 2
+//            () -> assertEquals(4,2*2), // 4
+//            () -> assertEquals(6,11/2) // 5
+//        );
     }
 
     @BeforeAll

@@ -1,8 +1,9 @@
-package com.tdd.learn;
+package com.tdd.spring;
 
 import com.tdd.learn.spring.LearnApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 /**
  * @SpringBootTest는 @SpringBootApplication가 붙은 클래스를 찾아서 컨텍스트 로드를 한다.
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * 이럴 땐 @SpringBootTest(classes = LearnApplication.class)와 같이 명시해주자
  */
 @SpringBootTest(classes = LearnApplication.class)
+@ContextConfiguration(classes = LearnApplication.class)
 class LearnApplicationTests {
 
 	@Test
