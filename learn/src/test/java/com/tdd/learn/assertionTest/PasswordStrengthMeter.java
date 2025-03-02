@@ -1,7 +1,7 @@
-package com.tdd.learn.tddTest;
+package com.tdd.learn.assertionTest;
 
 
-import static com.tdd.learn.tddTest.PasswordStrength.*;
+import static com.tdd.learn.assertionTest.PasswordStrength.*;
 
 public class PasswordStrengthMeter {
     public PasswordStrength meter(String s) {

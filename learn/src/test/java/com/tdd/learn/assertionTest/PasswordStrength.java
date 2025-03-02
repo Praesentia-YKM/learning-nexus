@@ -1,4 +1,4 @@
-package com.tdd.learn.tddTest;
+package com.tdd.learn.assertionTest;
 
 public enum PasswordStrength {
     WEAK,

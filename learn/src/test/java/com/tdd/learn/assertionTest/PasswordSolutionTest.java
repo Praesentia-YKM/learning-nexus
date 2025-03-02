@@ -1,8 +1,8 @@
-package com.tdd.learn.tddTest;
+package com.tdd.learn.assertionTest;
 
 import org.junit.jupiter.api.Test;
 
-import static com.tdd.learn.tddTest.PasswordStrength.*;
+import static com.tdd.learn.assertionTest.PasswordStrength.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PasswordSolutionTest {

@@ -1,4 +1,4 @@
-package com.tdd.learn.tddTest;
+package com.tdd.learn.assertionTest;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
