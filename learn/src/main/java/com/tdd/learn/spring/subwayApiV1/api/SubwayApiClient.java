@@ -6,31 +6,40 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
 
 @Component
-@RequiredArgsConstructor
 public class SubwayApiClient {
+    private final RestClient restClient;
+    private final ApiProperties apiProperties;
 
-    private final WebClient webClient;
-    private final ApiProperties apiProperties;  // API 키 불러오기
+    public SubwayApiClient(RestClient restClient, ApiProperties apiProperties) {
+        this.restClient = restClient;
+        this.apiProperties = apiProperties;
+    }
 
     /**
-     * 특정 지하철역의 승하차 인원 데이터를 조회하는 메서드
-     * http://openapi.seoul.go.kr:8088/{인증키}/xml/CardSubwayTime/1/5/{날짜}/{호선}/{역명}/
+     * 특정 지하철역의 승하차 인원 데이터를 동기적으로 조회하는 메서드
+     * http://openapi.seoul.go.kr:8088/{인증키}/json/CardSubwayTime/1/5/{날짜}/{호선}/{역명}/
      */
-    public Mono<PassengerData> fetchPassengerData(String line, String station, String date) {
+    public PassengerData fetchPassengerData(String line, String station, String date) {
         String apiKey = apiProperties.getApiKey();
-        return webClient
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .pathSegment(apiKey, "json", "CardSubwayTime", "1", "5", date, line, station)
-                        .build()
-                )
+        String formattedDate = date.replace("-", "");
+        String uri = String.format("/%s/json/CardSubwayTime/1/5/%s/%s/%s", apiKey, formattedDate, line, station);
+
+        try {
+            PassengerData response = restClient.get()
+                .uri(uri)
                 .retrieve()
-                .bodyToMono(PassengerData.class) // Jackson 기반 json -> Object 자동매핑
-                .onErrorResume(e -> {
-                    System.err.println("API 호출 실패: " + e.getMessage());
-                    return Mono.empty();
-                });
+                .body(PassengerData.class);
+
+            System.out.println("응답 데이터: " + response);
+            return response;
+        } catch (RestClientException e) {
+            System.err.println("API 호출 실패: " + e.getMessage());
+            return null;
+        }
     }
 }

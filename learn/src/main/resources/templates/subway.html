@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지하철 승하차 인원 조회 및 저장</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h2>지하철 승하차 인원 조회 및 저장</h2>
+
+        <!-- 사용자가 요청을 보낼 수 있는 폼 -->
+        <form action="#" th:action="@{/api/subway/fetch-and-save}" method="post" class="mb-4">
+            <div class="row gx-2 align-items-end">
+                <div class="col-md-4">
+                    <label class="form-label">지하철 호선:</label>
+                    <input type="text" name="line" class="form-control" placeholder="예: 2호선" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">역 이름:</label>
+                    <input type="text" name="station" class="form-control" placeholder="예: 강남" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label">날짜(YYYY.MM):</label>
+                    <input type="month" name="date" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">조회 및 저장</button>
+                </div>
+            </div>
+        </form>
+
+        <hr>
+
+        <!-- API 응답 메시지 출력 -->
+        <div th:if="${message}">
+            <p th:text="${message}" class="text-danger fw-bold"></p>
+        </div>
+
+        <h3>조회 결과 (저장된 API 데이터)</h3>
+
+        <!-- `passengerData`가 존재하는 경우 테이블 출력 -->
+        <div th:if="${passengerData}">
+            <h4>역 정보</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>호선</th>
+                        <th>역 이름</th>
+                        <th>날짜</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="record : ${passengerData.cardSubwayTime.row}">
+                        <td th:text="${record.subwayLineName}"></td>
+                        <td th:text="${record.station}"></td>
+                        <td th:text="${record.jobYmd}"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+
+            <h4>시간대별 승하차 인원</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>시간</th>
+                        <th>승차 인원</th>
+                        <th>하차 인원</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 시간 기준으로 각 행을 생성 -->
+                    <tr th:each="hour : ${#numbers.sequence(0, 23)}">
+                        <td th:text="|${hour}:00 - ${hour}:59|"></td> <!-- 시간 표시 -->
+                        <td th:each="record : ${passengerData?.cardSubwayTime?.row ?: #lists.emptyList()}">
+                            <span th:if="${record != null and record.passengerData != null}"
+                                  th:text="${#maps.containsKey(record.passengerData, 'HR_' + hour + '_GET_ON_NOPE')
+                                            ? #numbers.formatDecimal(record.passengerData['HR_' + hour + '_GET_ON_NOPE'] + 0, 0, 'COMMA', 0, 'NONE')
+                                            : '0'}"></span>
+                        </td>
+                        <td th:each="record : ${passengerData?.cardSubwayTime?.row ?: #lists.emptyList()}">
+                            <span th:if="${record != null and record.passengerData != null}"
+                                  th:text="${#maps.containsKey(record.passengerData, 'HR_' + hour + '_GET_OFF_NOPE')
+                                            ? #numbers.formatDecimal(record.passengerData['HR_' + hour + '_GET_OFF_NOPE'] + 0, 0, 'COMMA', 0, 'NONE')
+                                            : '0'}"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

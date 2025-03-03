@@ -23,6 +23,7 @@ public class SubwayService {
         this.repository = repository;
     }
 
+    // http://localhost:8080/api/subway/fetch?line=2호선&station=강남date=202501
     public Optional<SubwayPassengerEntity> getPassengerData(String line, String station, String date) {
         Optional<SubwayPassengerEntity> passenger = repository.findByLineAndStationAndDate(line, station, date);
 
@@ -33,6 +34,7 @@ public class SubwayService {
         return passenger;
     }
 
+    // http://localhost:8080/api/subway/fetch-and-save
     @Transactional
     public void saveOrUpdatePassengerRecords(PassengerData apiData) {
         List<SubwayRecordDTO> dtoList = apiData.getCardSubwayTime().getRow();
