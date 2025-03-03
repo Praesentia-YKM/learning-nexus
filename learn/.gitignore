@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+.idea/
 .idea
 *.iws
 *.iml
@@ -37,3 +38,7 @@ out/
 .vscode/
 
 /dataSources.local.xml
+
+# gradle 관련 설정 파일 무시
+gradle.properties
+gradle/libs.versions.toml
