@@ -1,6 +1,6 @@
 package com.tdd.learn.subwayApiTest;
 
-import com.tdd.learn.spring.subwayApiV1.entity.SubwayPassenger;
+import com.tdd.learn.spring.subwayApiV1.entity.SubwayPassengerEntity;
 import com.tdd.learn.spring.subwayApiV1.respository.SubwayPassengerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
