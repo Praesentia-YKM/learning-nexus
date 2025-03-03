@@ -6,13 +6,13 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CardSubwayTime {
+public class CardSubwayTimeDTO {
     @JsonProperty("list_total_count")
     private int listTotalCount;
 
     @JsonProperty("RESULT")
-    private Result result;
+    private ResultDTO result;
 
     @JsonProperty("row")
-    private List<SubwayRecord> row;
+    private List<SubwayRecordDTO> row;
 }
