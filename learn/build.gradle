@@ -29,6 +29,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// POI
+	implementation 'org.apache.poi:poi:5.2.3'               // 구버전 Excel(.xls) 지원
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'         // 최신 Excel(.xlsx) 지원
+	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2' // XML Schema 지원
+	implementation 'org.apache.poi:poi-scratchpad:5.2.3'    // Word, PowerPoint 지원
 }
 
 tasks.named('test') {
