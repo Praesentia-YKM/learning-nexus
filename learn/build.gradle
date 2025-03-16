@@ -35,6 +35,9 @@ dependencies {
 	implementation 'org.apache.poi:poi-ooxml:5.2.3'         // 최신 Excel(.xlsx) 지원
 	implementation 'org.apache.poi:poi-ooxml-schemas:4.1.2' // XML Schema 지원
 	implementation 'org.apache.poi:poi-scratchpad:5.2.3'    // Word, PowerPoint 지원
+
+	// Jackson
+	implementation 'org.json:json:20240303'
 }
 
 tasks.named('test') {
