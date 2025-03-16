@@ -1,4 +1,4 @@
-package com.tdd.learn.spring;
+package com.tdd.learn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -58,7 +58,7 @@ public class SubwayController {
         return ResponseEntity.ok("지하철 데이터 저장 성공!");
     }
 
-    //public ResponseEntity<String> searchAndSaveSubwayData(
+    // localhost:8080/api/fetch-and-save
     @PostMapping("/fetch-and-save")
     public ModelAndView searchAndSaveSubwayData(
             @RequestParam String line,
